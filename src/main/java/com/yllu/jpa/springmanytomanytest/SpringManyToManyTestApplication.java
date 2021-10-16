@@ -50,18 +50,19 @@ public class SpringManyToManyTestApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Bank bank = bankService.getById("0793fb08-290b-44fd-9423-8cff4127c4d1");
+        Bank bank = bankService.getById("dde67f9c-cc64-4adf-a6ba-cb99e3ac5b67");
         Client client = clientService.getById("83314d5e-bf8b-4666-a75a-0a96822041cf");
 
-//        System.out.println(bank + " " + client);
+//
+//        System.out.println(bank.getId() + " " + client.getId());
 //        Set<Bank_Client> clientSet = bank.getClientBankRelationships();
 //
 //        Bank_Client bank_client = new Bank_Client(bank, client, "200");
 //        bank_clientService.save(bank_client);
-//
+
 //        clientSet.add(bank_client);
 //        bank.setClientBankRelationships(clientSet);
-//
+
 //        bankService.save(bank);
         for (Bank_Client bank_client : bank.getClientBankRelationships()) {
             System.out.println(bank_client.getBank().getId() + " " + bank_client.getClient().getId() + " " + bank_client.getRating());

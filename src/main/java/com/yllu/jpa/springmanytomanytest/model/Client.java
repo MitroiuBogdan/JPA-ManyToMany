@@ -20,6 +20,9 @@ public class Client implements Serializable {
     public Client() {
     }
 
+    @OneToMany(mappedBy = "client")
+    private Set<Bank_Client> clientBankRelationships = new HashSet<>();
+
     public Client(String id, String name) {
         this.id = id;
         this.name = name;

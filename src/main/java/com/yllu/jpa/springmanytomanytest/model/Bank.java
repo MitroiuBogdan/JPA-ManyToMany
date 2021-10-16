@@ -13,6 +13,12 @@ import java.util.Set;
 public class Bank {
 
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "ID", updatable = false, nullable = false)
     String id;
 
     @Column(name = "NAME", nullable = false)
@@ -25,7 +31,7 @@ public class Bank {
 //            inverseJoinColumns = @JoinColumn(name = "CLIENT_ID", referencedColumnName = "ID"))
 //    private Set<Client> clients = new HashSet<>();
 
-    @OneToMany(mappedBy = "bank",fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "bank")
     private Set<Bank_Client> clientBankRelationships = new HashSet<>();
 
     public Bank() {

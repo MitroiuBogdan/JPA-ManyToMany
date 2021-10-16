@@ -1,5 +1,7 @@
 package com.yllu.jpa.springmanytomanytest.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,14 +9,20 @@ import javax.persistence.*;
 public class Bank_Client {
 
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "ID", updatable = false, nullable = false)
     String id;
 
     @ManyToOne
-    @JoinColumn(name = "bank_id")
+    @JoinColumn(name = "BANK_ID")
     Bank bank;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "CLIENT_ID")
     Client client;
 
     @Column(name = "RATEING")
