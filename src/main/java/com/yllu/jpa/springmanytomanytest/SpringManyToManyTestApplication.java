@@ -1,8 +1,10 @@
 package com.yllu.jpa.springmanytomanytest;
 
 import com.yllu.jpa.springmanytomanytest.model.Bank;
+import com.yllu.jpa.springmanytomanytest.model.Bank_Client;
 import com.yllu.jpa.springmanytomanytest.model.Client;
 import com.yllu.jpa.springmanytomanytest.service.BankService;
+import com.yllu.jpa.springmanytomanytest.service.Bank_ClientService;
 import com.yllu.jpa.springmanytomanytest.service.ClientService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -34,10 +36,12 @@ public class SpringManyToManyTestApplication implements CommandLineRunner {
 
     private final ClientService clientService;
     private final BankService bankService;
+    private final Bank_ClientService bank_clientService;
 
-    public SpringManyToManyTestApplication(ClientService clientService, BankService bankService) {
+    public SpringManyToManyTestApplication(ClientService clientService, BankService bankService, Bank_ClientService bank_clientService) {
         this.clientService = clientService;
         this.bankService = bankService;
+        this.bank_clientService = bank_clientService;
     }
 
     public static void main(String[] args) {
@@ -46,15 +50,22 @@ public class SpringManyToManyTestApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Bank bank = bankService.getById("58066800-0f52-469e-808e-7f1cb47047b4");
-        Client client = clientService.getById("44792924-4b55-4a1a-88ea-e644c57d3d3e");
+        Bank bank = bankService.getById("0793fb08-290b-44fd-9423-8cff4127c4d1");
+        Client client = clientService.getById("83314d5e-bf8b-4666-a75a-0a96822041cf");
 
-        System.out.println(bank +" "+client);
-        Set<Client> clientSet = bank.getClients();
-        clientSet.add(client);
-        bank.setClients(clientSet);
-
-        bankService.save(bank);
+//        System.out.println(bank + " " + client);
+//        Set<Bank_Client> clientSet = bank.getClientBankRelationships();
+//
+//        Bank_Client bank_client = new Bank_Client(bank, client, "200");
+//        bank_clientService.save(bank_client);
+//
+//        clientSet.add(bank_client);
+//        bank.setClientBankRelationships(clientSet);
+//
+//        bankService.save(bank);
+        for (Bank_Client bank_client : bank.getClientBankRelationships()) {
+            System.out.println(bank_client.getBank().getId() + " " + bank_client.getClient().getId() + " " + bank_client.getRating());
+        }
 
     }
 }

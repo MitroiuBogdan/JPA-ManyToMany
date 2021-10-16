@@ -1,0 +1,11 @@
+package com.yllu.jpa.springmanytomanytest.repository;
+
+
+import com.yllu.jpa.springmanytomanytest.model.Bank_Client;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface Bank_ClientRepository extends JpaRepository<Bank_Client, String>, JpaSpecificationExecutor<Bank_Client> {
+}

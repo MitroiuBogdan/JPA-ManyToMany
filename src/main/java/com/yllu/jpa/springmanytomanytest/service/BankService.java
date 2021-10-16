@@ -20,7 +20,10 @@ public class BankService {
     }
 
     public Bank save(Bank bank) {
-        String id = UUID.randomUUID().toString();
+        String id = bank.getId();
+        if (bank.getId() == null) {
+            id = UUID.randomUUID().toString();
+        }
         System.out.println("Saving bank with name: " + bank.getName() + " and id: " + id);
         bank.setId(id);
         return bankRepository.save(bank);

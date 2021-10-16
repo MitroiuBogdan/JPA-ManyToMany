@@ -19,7 +19,10 @@ public class ClientService {
 
 
     public Client save(Client client) {
-        String id = UUID.randomUUID().toString();
+        String id = client.getId();
+        if (client.getId() == null) {
+            id = UUID.randomUUID().toString();
+        }
         System.out.println("Saving client with name: " + client.getName() + " and id: " + id);
         client.setId(id);
         return clientRepository.save(client);

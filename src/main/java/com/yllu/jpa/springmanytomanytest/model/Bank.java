@@ -18,13 +18,15 @@ public class Bank {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
-    @JoinTable(name = "YLLU_BANK_CLIENT",
-            joinColumns = @JoinColumn(name = "BANK_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "CLIENT_ID", referencedColumnName = "ID"))
-    private Set<Client> clients = new HashSet<>();
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @Fetch(value = FetchMode.SUBSELECT)
+//    @JoinTable(name = "YLLU_BANK_CLIENT",
+//            joinColumns = @JoinColumn(name = "BANK_ID", referencedColumnName = "ID"),
+//            inverseJoinColumns = @JoinColumn(name = "CLIENT_ID", referencedColumnName = "ID"))
+//    private Set<Client> clients = new HashSet<>();
 
+    @OneToMany(mappedBy = "bank",fetch = FetchType.EAGER)
+    private Set<Bank_Client> clientBankRelationships = new HashSet<>();
 
     public Bank() {
     }
@@ -46,15 +48,23 @@ public class Bank {
         return name;
     }
 
+    public Set<Bank_Client> getClientBankRelationships() {
+        return clientBankRelationships;
+    }
+
+    public void setClientBankRelationships(Set<Bank_Client> clientBankRelationships) {
+        this.clientBankRelationships = clientBankRelationships;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
-
-    public Set<Client> getClients() {
-        return clients;
-    }
-
-    public void setClients(Set<Client> clients) {
-        this.clients = clients;
-    }
+//
+//    public Set<Client> getClients() {
+//        return clients;
+//    }
+//
+//    public void setClients(Set<Client> clients) {
+//        this.clients = clients;
+//    }
 }
