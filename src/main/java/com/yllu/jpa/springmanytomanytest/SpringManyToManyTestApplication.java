@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.transaction.Transactional;
 import java.util.Set;
 /*
 0793fb08-290b-44fd-9423-8cff4127c4d1	CEC
@@ -49,24 +50,30 @@ public class SpringManyToManyTestApplication implements CommandLineRunner {
     }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
         Bank bank = bankService.getById("dde67f9c-cc64-4adf-a6ba-cb99e3ac5b67");
-        Client client = clientService.getById("83314d5e-bf8b-4666-a75a-0a96822041cf");
+        Client client = clientService.getById("c6d9457a-d0db-42ca-95db-2c09b8a253ff");
 
-//
-//        System.out.println(bank.getId() + " " + client.getId());
-//        Set<Bank_Client> clientSet = bank.getClientBankRelationships();
-//
-//        Bank_Client bank_client = new Bank_Client(bank, client, "200");
-//        bank_clientService.save(bank_client);
 
-//        clientSet.add(bank_client);
-//        bank.setClientBankRelationships(clientSet);
+        System.out.println(bank.getId() + " " + client.getId());
+        Set<Bank_Client> clientSet = bank.getClientBankRelationships();
 
-//        bankService.save(bank);
-        for (Bank_Client bank_client : bank.getClientBankRelationships()) {
-            System.out.println(bank_client.getBank().getId() + " " + bank_client.getClient().getId() + " " + bank_client.getRating());
-        }
+        Bank_Client bank_client = new Bank_Client();
+        bank_client.setBank(bank);
+        bank_client.setClient(client);
+        bank_client.setRating("999");
+
+        clientSet.add(bank_client);
+        bank.setClientBankRelationships(clientSet);
+
+        System.out.println(bank.getClientBankRelationships());
+
+        bankService.save(bank);
+
+//        for (Bank_Client bank_client : bank.getClientBankRelationships()) {
+//            System.out.println(bank_client.getBank().getId() + " " + bank_client.getClient().getId() + " " + bank_client.getRating());
+//        }
 
     }
 }

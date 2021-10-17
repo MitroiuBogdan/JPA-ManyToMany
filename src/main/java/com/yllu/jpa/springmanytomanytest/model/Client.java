@@ -15,13 +15,10 @@ public class Client implements Serializable {
     String id;
 
     @Column(name = "NAME", nullable = false)
-    private String name;
+    String name;
 
     public Client() {
     }
-
-    @OneToMany(mappedBy = "client")
-    private Set<Bank_Client> clientBankRelationships = new HashSet<>();
 
     public Client(String id, String name) {
         this.id = id;

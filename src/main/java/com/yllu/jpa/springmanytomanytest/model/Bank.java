@@ -4,6 +4,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,17 +23,11 @@ public class Bank {
     String id;
 
     @Column(name = "NAME", nullable = false)
-    private String name;
+    String name;
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @Fetch(value = FetchMode.SUBSELECT)
-//    @JoinTable(name = "YLLU_BANK_CLIENT",
-//            joinColumns = @JoinColumn(name = "BANK_ID", referencedColumnName = "ID"),
-//            inverseJoinColumns = @JoinColumn(name = "CLIENT_ID", referencedColumnName = "ID"))
-//    private Set<Client> clients = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "bank")
-    private Set<Bank_Client> clientBankRelationships = new HashSet<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "bank", cascade = CascadeType.ALL)
+    Set<Bank_Client> clientBankRelationships = new HashSet<>();
 
     public Bank() {
     }
@@ -65,12 +60,5 @@ public class Bank {
     public void setName(String name) {
         this.name = name;
     }
-//
-//    public Set<Client> getClients() {
-//        return clients;
-//    }
-//
-//    public void setClients(Set<Client> clients) {
-//        this.clients = clients;
-//    }
+
 }
