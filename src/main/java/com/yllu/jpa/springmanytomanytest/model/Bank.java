@@ -27,6 +27,7 @@ public class Bank {
 
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "bank", cascade = CascadeType.ALL)
+    @Fetch(FetchMode.SUBSELECT)
     Set<Bank_Client> clientBankRelationships = new HashSet<>();
 
     public Bank() {
@@ -59,6 +60,15 @@ public class Bank {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void createRelation(Client client) {
+        Bank_Client bank_client = new Bank_Client();
+        bank_client.setBank(this);
+        bank_client.setClient(client);
+        bank_client.setRating("988");
+
+        this.clientBankRelationships.add(bank_client);
     }
 
 }
