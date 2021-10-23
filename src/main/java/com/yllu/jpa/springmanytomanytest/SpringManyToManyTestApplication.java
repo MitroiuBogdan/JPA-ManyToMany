@@ -61,11 +61,19 @@ public class SpringManyToManyTestApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Bank bank = bankService.getById("8e827681-d7ec-4bbf-9423-5004a8906dba");
-        Client client = clientService.getById("83314d5e-bf8b-4666-a75a-0a96822041cf");
+        Client client = clientService.getById("d8380fba-59bc-49d8-83ab-a156e19d88e5");
+//        Client client = new Client();
+//        client.setName("CoffeBank");
+//        clientService.save(client);
 
-        bank.createRelation(client);
-
+//        bank.createRelation(client);
+//        List<Bank> banks = bankService.getByClientId("b0f4fe10-79aa-4c6f-9854-4fc8b119a58e");
+//        List<Bank> banks = bankService.getByClientIdAndName("83314d5e-bf8b-4666-a75a-0a96822041cf","CASY_BANK");
 //
+//        for (Bank b : banks) {
+//            System.out.println(b.getId() + " " + b.getName());
+//        }
+////
 //        Bank bank2 = new Bank();
 //
 //        Bank bank3 = new Bank();
@@ -77,26 +85,26 @@ public class SpringManyToManyTestApplication implements CommandLineRunner {
 //        bankRepository.delete(bank);
 
 //        System.out.println(bank.getId() + " " + client.getId());
-//        Set<Bank_Client> clientSet = bank.getClientBankRelationships();
+        Set<Bank_Client> clientSet = bank.getClientBankRelationships();
 //
-//        Bank_Client bank_client = new Bank_Client();
-//        bank_client.setBank(bank);
-//        bank_client.setClient(client);
-//        bank_client.setRating("988");
-//
-//        clientSet.add(bank_client);
-//        bank.setClientBankRelationships(clientSet);
+        Bank_Client bank_client = new Bank_Client();
+        bank_client.setBank(bank);
+        bank_client.setClient(client);
+        bank_client.setRating("988");
+
+        clientSet.add(bank_client);
+        bank.setClientBankRelationships(clientSet);
 
 //        System.out.println(bank.getClientBankRelationships());
 
 
-//        bankService.save(bank);
+        bankService.save(bank);
 //        for (Bank_Client bk : bank.getClientBankRelationships()) {
 //            bk.setRating("10");
 //            System.out.println(bk.getBank().getId() + " " + bk.getClient().getId() + " " + bk.getRating());
 //        }
 //        updateBank(bank);
-        bankService.save(bank);
+//        bankService.save(bank);
 
 
     }
